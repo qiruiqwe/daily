@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin.mapper.DiaryMapper">
+
+	<!-- 查询出所有日记信息 -->
+	<select id="showDiaryList" resultType="Diary">
+		SELECT * FROM diary
+	</select>
+
+	<!-- 根据id查询日记信息 -->
+	<select id="findDiaryByid" parameterType="Integer" resultType="Diary">
+		SELECT * FROM diary WHERE id=#{id}
+	</select>
+	
+	<!-- 根据输入查询日记信息 -->
+  	<select id="search" parameterType="java.lang.String" resultType="Diary">
+  		select * from diary where title LIKE "%"#{search}"%" OR content LIKE "%"#{search}"%"
+  	</select>
+	
+	<!-- 更新日记信息 -->
+	<update id="editDiary" parameterType="Diary">
+		UPDATE diary
+		SET createtime =
+		#{createtime},
+		title = #{title},
+		content = #{content}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 删除日记 -->
+	<delete id="deleteDiaryByid" parameterType="Integer">
+		DELETE FROM
+		diary WHERE id=#{id}
+	</delete>
+	
+	<!-- 添加日记 -->
+	<insert id="insertDiary" parameterType="Diary">
+		INSERT INTO diary
+		(createtime,title,pic,content) VALUES
+		(#{createtime},#{title},#{pic},#{content})
+	</insert>
+	
+</mapper>
